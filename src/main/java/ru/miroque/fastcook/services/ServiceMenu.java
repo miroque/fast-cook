@@ -2,11 +2,8 @@ package ru.miroque.fastcook.services;
 
 
 
-/*
- * @todo Вывод меню для заказа 
- *
- *
- */
+
+ // @todo #1 Вывод меню для заказа 
 public class ServiceMenu {
 
 }
