@@ -18,7 +18,7 @@ public class ServiceMenu {
 	
 	@PostConstruct
 	private void init() {
-		//@todo #1 сервис инициализации списка блюд
+		// @todo #1 сервис инициализации списка блюд
 		// в отдельный класс сервис
 	}
 }
