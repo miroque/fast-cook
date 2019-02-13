@@ -102,7 +102,7 @@
 			<scope>compile</scope>
 			<version>42.2.5</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -117,5 +117,20 @@
 			<version>2.3</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Play with Tests -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.3.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se-core</artifactId>
+			<version>3.0.2.Final</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>

@@ -22,8 +22,6 @@ public class ServiceMenu {
 	
 	@PostConstruct
 	private void init() {
-		// @todo #2 сервис инициализации списка блюд
-		// и что я это должен отдельным что ли включать?
 		menu = serviceDish.getDefaultListOfDishes();
 	}
 }
