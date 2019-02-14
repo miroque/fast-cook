@@ -6,12 +6,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.primefaces.component.steps.Steps;
-
 import ru.miroque.fastcook.domains.CookStep;
 import ru.miroque.fastcook.domains.Recipe;
 
-
+@ApplicationScoped
 public class ServiceRecipe {
 	private List<Recipe> recipes;
 

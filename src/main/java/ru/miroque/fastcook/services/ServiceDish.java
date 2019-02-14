@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import ru.miroque.fastcook.domains.Dish;
-import ru.miroque.fastcook.domains.Recipe;
 
 @ApplicationScoped
 public class ServiceDish {

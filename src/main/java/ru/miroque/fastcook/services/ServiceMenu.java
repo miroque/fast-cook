@@ -5,13 +5,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import lombok.Getter;
 import ru.miroque.fastcook.domains.Dish;
 
 @ApplicationScoped
-@Named
 public class ServiceMenu {
 	@Getter
 	private List<Dish> menu;

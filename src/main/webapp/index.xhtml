@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Fast-Cook Menu Select order and Eat</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
+
+		<p:dataTable id="phones" widgetVar="items" var="item"
+			value="#{menuController.menu}" editable="false"
+			style="margin-bottom:20px">
+
+			<f:facet name="header"> Dishes of the day </f:facet>
+
+			<p:column headerText="Dish name">
+				<h:outputText value="#{item.recipe.name}" />
+			</p:column>
+
+			<p:column headerText="Price">
+				<h:outputText value="#{item.price}">
+				<f:convertNumber type="currency" />
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Order">
+				<h:outputText value="#{item.price}">
+				</h:outputText>
+			</p:column>
+
+		</p:dataTable>
+
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<p:commandButton value="Сделать заказ" disabled="true"
+					styleClass="ui-priority-primary" process="@this"
+					update=":form:msgs" action="#{menuController.onAddNew}"
+					oncomplete="PF('cars1').addRow();" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+
+</html>
