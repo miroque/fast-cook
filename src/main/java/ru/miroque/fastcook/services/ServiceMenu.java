@@ -10,7 +10,6 @@ import javax.inject.Named;
 import lombok.Getter;
 import ru.miroque.fastcook.domains.Dish;
 
-// @todo #1 Вывод меню для заказа 
 @ApplicationScoped
 @Named
 public class ServiceMenu {

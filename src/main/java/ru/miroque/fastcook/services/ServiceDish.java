@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import ru.miroque.fastcook.domains.Dish;
 import ru.miroque.fastcook.domains.Recipe;
 
-// @todo #1 подумать а действительно ли тут апликашен скоуп или же надо реквест?
 @ApplicationScoped
 public class ServiceDish {
 
