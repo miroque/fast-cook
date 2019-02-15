@@ -33,8 +33,7 @@
 			
 			<p:column headerText="Order">
 			<!-- // @todo #9 чекбоксы для выбора меню -->
-				<h:outputText value="#{item.price}">
-				</h:outputText>
+				<p:selectBooleanCheckbox value="#{item}" itemLabel="Order"/>
 			</p:column>
 
 		</p:dataTable>

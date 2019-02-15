@@ -3,10 +3,12 @@ package ru.miroque.fastcook.domains;
 import java.util.Collections;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@EqualsAndHashCode
 @ToString
 public class Recipe {
 	@Getter @Setter
