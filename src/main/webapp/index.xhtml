@@ -22,27 +22,24 @@
 			<f:facet name="header"> Dishes of the day </f:facet>
 
 			<p:column headerText="Dish name">
-				<h:outputText value="#{item.recipe.name}" />
+				<h:outputText value="#{item.dish.recipe.name}" />
 			</p:column>
 
 			<p:column headerText="Price">
-				<h:outputText value="#{item.price}">
-				<f:convertNumber type="currency" />
+				<h:outputText value="#{item.dish.price}">
+					<f:convertNumber type="currency" />
 				</h:outputText>
 			</p:column>
-			
-			<p:column headerText="Order">
-			<!-- // @todo #9 чекбоксы для выбора меню -->
-				<p:selectBooleanCheckbox value="#{item}" itemLabel="Order"/>
+
+			<p:column>
+				<p:selectBooleanCheckbox value="#{item.order}" />
 			</p:column>
-
 		</p:dataTable>
-
 		<div class="ui-g">
 			<div class="ui-g-12">
-				<p:commandButton value="Сделать заказ" disabled="true"
+				<p:commandButton value="Сделать заказ"
 					styleClass="ui-priority-primary" process="@this"
-					update=":form:msgs" action="#{menuController.onAddNew}"
+					update=":form:msgs" action="#{menuController.makeOrder}"
 					oncomplete="PF('cars1').addRow();" />
 			</div>
 		</div>

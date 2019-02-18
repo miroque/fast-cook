@@ -3,13 +3,13 @@ package ru.miroque.fastcook.services;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import lombok.Getter;
 import ru.miroque.fastcook.domains.Dish;
 
-@ApplicationScoped
+@RequestScoped
 public class ServiceMenu {
 	@Getter
 	private List<Dish> menu;

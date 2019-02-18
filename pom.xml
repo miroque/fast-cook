@@ -16,121 +16,274 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<profiles>
+		<profile>
+			<id>wildfly</id>
+			<properties>
+				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+				<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
+				<version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
+			</properties>
+			<dependencyManagement>
+				<!-- https://mvnrepository.com/artifact/org.wildfly.bom/wildfly-javaee7-with-tools/11.0.0.Final -->
+				<dependencies>
+					<dependency>
+						<groupId>org.wildfly.bom</groupId>
+						<artifactId>wildfly-javaee8</artifactId>
+						<version>15.0.1.Final</version>
+						<type>pom</type>
+						<scope>import</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<!-- deps in Wildfly -->
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.thorntail</groupId>
-				<artifactId>bom-all</artifactId>
-				<version>${version.thorntail}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+				<dependency>
+					<groupId>org.jboss.spec.javax.ws.rs</groupId>
+					<artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+					<scope>provided</scope>
+				</dependency>
 
-	<build>
-		<finalName>fast-cook</finalName>
-		<plugins>
-			<plugin>
-				<groupId>io.thorntail</groupId>
-				<artifactId>thorntail-maven-plugin</artifactId>
-				<version>${version.thorntail}</version>
-				<executions>
-					<execution>
-						<id>package</id>
-						<goals>
-							<goal>package</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+				<dependency>
+					<groupId>javax.enterprise</groupId>
+					<artifactId>cdi-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<!-- <dependency> <groupId>javax.persistence</groupId> <artifactId>javax.persistence-api</artifactId> 
+					<scope>provided</scope> </dependency> <dependency> <groupId>org.hibernate.validator</groupId> 
+					<artifactId>hibernate-validator</artifactId> <scope>provided</scope> </dependency> 
+					<dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-core</artifactId> 
+					<scope>provided</scope> </dependency> -->
+				<!-- Transactions -->
+				<!-- <dependency> <groupId>org.jboss.spec.javax.transaction</groupId> 
+					<artifactId>jboss-transaction-api_1.2_spec</artifactId> <scope>provided</scope> 
+					</dependency> <dependency> <groupId>org.jboss.spec.javax.ejb</groupId> <artifactId>jboss-ejb-api_3.2_spec</artifactId> 
+					<scope>provided</scope> </dependency> -->
+				<dependency>
+					<groupId>org.jboss.spec.javax.servlet</groupId>
+					<artifactId>jboss-servlet-api_4.0_spec</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<!-- JSF for future learning -->
+				<dependency>
+					<groupId>org.jboss.spec.javax.faces</groupId>
+					<artifactId>jboss-jsf-api_2.3_spec</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<!-- PRIMEFACES -->
+				<dependency>
+					<groupId>org.primefaces</groupId>
+					<artifactId>primefaces</artifactId>
+					<version>6.2</version>
+				</dependency>
+				<!-- JSF Util Library here for working with images -->
+				<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->
+				<dependency>
+					<groupId>org.omnifaces</groupId>
+					<artifactId>omnifaces</artifactId>
+					<version>2.6.7</version>
+				</dependency>
+				<dependency>
+					<groupId>org.omnifaces</groupId>
+					<artifactId>omniutils</artifactId>
+					<version>0.6</version>
+				</dependency>
+				<!-- Tests Unit and Mock -->
+				<dependency>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-all</artifactId>
+					<version>1.10.19</version>
+					<scope>test</scope>
+				</dependency>
+				<!-- Play with Tests -->
+				<dependency>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter-engine</artifactId>
+					<version>5.3.1</version>
+					<scope>test</scope>
+				</dependency>
+				<!-- END Tests Unit and Mock -->
 
-	<dependencies>
+				<!-- Lombock -->
+				<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<version>1.18.4</version>
+					<scope>provided</scope>
+				</dependency>
 
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>cdi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>jsf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>undertow</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>transactions</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>jaxrs</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>jaxrs-jsonp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.thorntail</groupId>
-			<artifactId>datasources</artifactId>
-		</dependency>
+				<!-- Logging -->
+				<dependency>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+					<scope>provided</scope>
+				</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.4</version>
-			<scope>provided</scope>
-		</dependency>
+			</dependencies>
+			<build>
+				<finalName>${project.artifactId}</finalName>
+				<plugins>
+					<plugin>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.1</version>
+						<configuration>
+							<source>1.8</source>
+							<target>1.8</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.4</version>
+						<configuration>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<archive>
+								<manifestEntries>
+									<Implementation-Version>${project.version}</Implementation-Version>
+									<Implementation-Build>${buildNumber}</Implementation-Build>
+									<Implementation-Build-Time>${maven.build.timestamp}</Implementation-Build-Time>
+								</manifestEntries>
+							</archive>
+						</configuration>
+					</plugin>
+					<!-- Git number for release -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>buildnumber-maven-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>create</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<doCheck>false</doCheck>
+							<doUpdate>false</doUpdate>
+							<shortRevisionLength>10</shortRevisionLength>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.wildfly.plugins</groupId>
+						<artifactId>wildfly-maven-plugin</artifactId>
+						<version>${version.wildfly.maven.plugin}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>thorntail</id>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>io.thorntail</groupId>
+						<artifactId>bom-all</artifactId>
+						<version>${version.thorntail}</version>
+						<scope>import</scope>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
 
-		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>compile</scope>
-			<version>42.2.5</version>
-		</dependency>
+			<build>
+				<finalName>phonebook</finalName>
+				<plugins>
+					<plugin>
+						<groupId>io.thorntail</groupId>
+						<artifactId>thorntail-maven-plugin</artifactId>
+						<version>${version.thorntail}</version>
+						<executions>
+							<execution>
+								<id>package</id>
+								<goals>
+									<goal>package</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 
-		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>6.2</version>
-		</dependency>
+			<dependencies>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>cdi</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>jpa</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>jsf</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>undertow</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>logging</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>transactions</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>jaxrs</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>jaxrs-jsonp</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>io.thorntail</groupId>
+					<artifactId>datasources</artifactId>
+				</dependency>
 
-		<!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
-		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
-			<version>2.3</version>
-			<scope>provided</scope>
-		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+				<dependency>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+					<version>1.18.4</version>
+					<scope>provided</scope>
+				</dependency>
 
-		<!-- Play with Tests -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.3.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se-core</artifactId>
-			<version>3.0.2.Final</version>
-			<scope>test</scope>
-		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<scope>compile</scope>
+					<version>42.2.5</version>
+				</dependency>
 
-	</dependencies>
+				<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<scope>compile</scope>
+					<version>1.4.197</version>
+				</dependency>
+
+				<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+				<dependency>
+					<groupId>org.primefaces</groupId>
+					<artifactId>primefaces</artifactId>
+					<version>6.2</version>
+				</dependency>
+
+				<!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
+				<dependency>
+					<groupId>javax.faces</groupId>
+					<artifactId>javax.faces-api</artifactId>
+					<version>2.3</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>
