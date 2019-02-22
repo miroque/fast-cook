@@ -34,11 +34,14 @@
 			</p:column>
 
 		</p:dataTable>
+		<p:commandButton process="di"
+		update=":form:di"
+		value="View" />
 		<div class="ui-g">
 			<div class="ui-g-12">
 				<p:commandButton value="Сделать заказ"
-					styleClass="ui-priority-primary" process="@this"
-					update=":form:msgs" action="#{menuController.makeOrder}"
+					styleClass="ui-priority-primary"
+					update=":form:di" action="#{menuController.makeOrder}"
 					 />
 			</div>
 		</div>

@@ -27,7 +27,6 @@ public class MenuController implements Serializable {
 	@Getter @Setter
 	private List<DaoMenuItemOrder> menu;
 
-	@Getter @Setter
 	private List<DaoMenuItemOrder> selected;
 
 	@Inject
@@ -46,13 +45,30 @@ public class MenuController implements Serializable {
 		log.info("initMenu ->");
 	}
 
-	public String makeOrder() {
+	public void makeOrder() {
 		log.info("makeOrder <-");
 		for (DaoMenuItemOrder item : selected) {
 			log.info("::selected:item " + item);
 		}
 		log.info("makeOrder ->");
-		return "";
+	}
+
+	public List<DaoMenuItemOrder> getSelected() {
+		log.info("getSelected <-");
+		for (DaoMenuItemOrder item : selected) {
+			log.info("::selected:item " + item);
+		}
+		log.info("getSelected ->");
+		return selected;
+	}
+
+	public void setSelected(List<DaoMenuItemOrder> selected) {
+		log.info("setSelected <-");
+		for (DaoMenuItemOrder item : selected) {
+			log.info("::selected:item " + item);
+		}
+		log.info("setSelected ->");
+		this.selected = selected;
 	}
 
 }
