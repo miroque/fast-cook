@@ -14,6 +14,7 @@ import org.jboss.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.miroque.fastcook.domains.Dish;
 import ru.miroque.fastcook.dto.DaoMenuItemOrder;
 import ru.miroque.fastcook.services.ServiceDish;
 
@@ -25,10 +26,10 @@ public class MenuController implements Serializable {
 	private final Logger log = Logger.getLogger(getClass());
 
 	@Getter @Setter
-	private List<DaoMenuItemOrder> menu;
+	private List<Dish> menu;
 
 	@Getter @Setter
-	private List<DaoMenuItemOrder> selected;
+	private List<Dish> selected;
 
 	@Inject
 	private ServiceDish serviceDish;
@@ -36,11 +37,10 @@ public class MenuController implements Serializable {
 	@PostConstruct
 	private void initMenu() {
 		log.info("initMenu <-");
-		menu = serviceDish.getDefaultListOfDishes().stream().map(i -> new DaoMenuItemOrder(i.getId(), i, Boolean.FALSE))
-				.collect(Collectors.toList());
+		menu = serviceDish.getDefaultListOfDishes();
 		log.info("::menu size: " + menu.size());
 		selected = new ArrayList<>();
-		for (DaoMenuItemOrder item : selected) {
+		for (Dish item : selected) {
 			log.info("::selected:item " + item);
 		}
 		log.info("initMenu ->");
@@ -48,7 +48,7 @@ public class MenuController implements Serializable {
 
 	public void makeOrder() {
 		log.info("makeOrder <-");
-		for (DaoMenuItemOrder item : selected) {
+		for (Dish item : selected) {
 			log.info("::selected:item " + item);
 		}
 		log.info("makeOrder ->");

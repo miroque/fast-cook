@@ -24,11 +24,11 @@
 			<p:column selectionMode="multiple" />
 
 			<p:column headerText="Dish name">
-				<h:outputText value="#{item.dish.recipe.name}" />
+				<h:outputText value="#{item.recipe.name}" />
 			</p:column>
 
 			<p:column headerText="Price">
-				<h:outputText value="#{item.dish.price}">
+				<h:outputText value="#{item.price}">
 					<f:convertNumber type="currency" />
 				</h:outputText>
 			</p:column>
