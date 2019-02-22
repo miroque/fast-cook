@@ -1,6 +1,7 @@
 package ru.miroque.fastcook.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,19 +27,31 @@ public class MenuController implements Serializable {
 	@Getter @Setter
 	private List<DaoMenuItemOrder> menu;
 
+	@Getter @Setter
+	private List<DaoMenuItemOrder> selected;
+
 	@Inject
 	private ServiceDish serviceDish;
 
 	@PostConstruct
 	private void initMenu() {
-		menu = serviceDish.getDefaultListOfDishes().stream().map(i -> new DaoMenuItemOrder(i, Boolean.FALSE))
+		log.info("initMenu <-");
+		menu = serviceDish.getDefaultListOfDishes().stream().map(i -> new DaoMenuItemOrder(i.getId(), i, Boolean.FALSE))
 				.collect(Collectors.toList());
-		log.info("POST CONSTRUCT menu size " + menu.size());
+		log.info("::menu size: " + menu.size());
+		selected = new ArrayList<>();
+		for (DaoMenuItemOrder item : selected) {
+			log.info("::selected:item " + item);
+		}
+		log.info("initMenu ->");
 	}
 
 	public String makeOrder() {
-		log.info("this dishes ordered: ");
-		menu.stream().filter(i -> i.getOrder()).forEach(i -> log.info("   " + i.getDish().getRecipe().getName()));
+		log.info("makeOrder <-");
+		for (DaoMenuItemOrder item : selected) {
+			log.info("::selected:item " + item);
+		}
+		log.info("makeOrder ->");
 		return "";
 	}
 

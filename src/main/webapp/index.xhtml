@@ -15,11 +15,13 @@
 	<h:form id="form">
 		<p:growl id="msgs" showDetail="true" />
 
-		<p:dataTable id="phones" widgetVar="items" var="item"
-			value="#{menuController.menu}" editable="false"
-			style="margin-bottom:20px">
+		<p:dataTable id="di" widgetVar="dishes"
+			value="#{menuController.menu}" var="item"
+			selection="#{menuController.selected}" rowKey="#{item.id}"
+			editable="false" style="margin-bottom:20px">
 
 			<f:facet name="header"> Dishes of the day </f:facet>
+			<p:column selectionMode="multiple" />
 
 			<p:column headerText="Dish name">
 				<h:outputText value="#{item.dish.recipe.name}" />
@@ -31,16 +33,13 @@
 				</h:outputText>
 			</p:column>
 
-			<p:column>
-				<p:selectBooleanCheckbox value="#{item.order}" />
-			</p:column>
 		</p:dataTable>
 		<div class="ui-g">
 			<div class="ui-g-12">
 				<p:commandButton value="Сделать заказ"
 					styleClass="ui-priority-primary" process="@this"
 					update=":form:msgs" action="#{menuController.makeOrder}"
-					oncomplete="PF('cars1').addRow();" />
+					 />
 			</div>
 		</div>
 	</h:form>

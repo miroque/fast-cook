@@ -16,6 +16,7 @@ public class ServiceDish {
 		List<Dish> items = new ArrayList<Dish>();
 		for (int i = 0; i < 3; i++) {
 			Dish item = new Dish();
+			item.setId(i);
 			item.setPrice(Math.random() * 10);
 			item.setRecipe(serviceRecipe.getRandomDefaultRecipe());
 			items.add(item);
