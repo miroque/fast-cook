@@ -1,5 +1,7 @@
 package ru.miroque.fastcook.domains;
 
+import java.io.Serializable;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +9,8 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-public class CookStep {
+@SuppressWarnings("serial")
+public class CookStep implements Serializable{
 	@Getter @Setter
 	private String name;
 	@Getter @Setter

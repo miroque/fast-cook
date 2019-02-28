@@ -1,5 +1,6 @@
 package ru.miroque.fastcook.domains;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
@@ -7,9 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("serial")
 @EqualsAndHashCode
 @ToString
-public class Order {
+public class Order implements Serializable{
 	
 	@Getter
 	@Setter
