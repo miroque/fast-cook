@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
  *
  */
 class ServiceRecipeTest {
-
 	@Test
 	void testGetRandomDefaultRecipe() {
 		ServiceRecipe service = new ServiceRecipe();

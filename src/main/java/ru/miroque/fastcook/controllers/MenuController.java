@@ -3,6 +3,8 @@ package ru.miroque.fastcook.controllers;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -18,7 +20,9 @@ import org.jboss.logging.Logger;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.miroque.fastcook.bean.RepoOrders;
 import ru.miroque.fastcook.domains.Dish;
+import ru.miroque.fastcook.domains.Order;
 import ru.miroque.fastcook.services.ServiceDish;
 
 @Named
@@ -45,6 +49,9 @@ public class MenuController implements Serializable {
 
 	@Inject
 	private ServiceDish serviceDish;
+	
+	@Inject
+	private RepoOrders orders;
 
 	@PostConstruct
 	private void initMenu() {
@@ -60,15 +67,17 @@ public class MenuController implements Serializable {
 
 	public void makeOrder() {
 		log.info("makeOrder <-");
-		for (Dish item : selected) {
-			log.info("::selected:item " + item);
+		try {
+			Order item = new Order();
+			item.setNumber(ThreadLocalRandom.current().nextInt(0, 100 + 1));
+			item.setItems(selected);
+			orders.addOrder(item);
+			log.infov("::order:sended: {0}", item);
+//		context.createProducer().send(queue, (ArrayList<Dish>)selected);
+		}catch (Exception e) {
+			log.errorv("Some error when send message: {0}", e.getMessage());
 		}
 		log.info("makeOrder ->");
-		try {
-		context.createProducer().send(queue, (ArrayList<Dish>)selected);
-		}catch (Exception e) {
-			log.error("SOme error when send message"+e.getMessage());
-		}
 	}
 
 }
