@@ -7,15 +7,23 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
+import org.jboss.logging.Logger;
+
+import lombok.Getter;
 import ru.miroque.fastcook.domains.CookStep;
 import ru.miroque.fastcook.domains.Recipe;
 
 @ApplicationScoped
 public class RepoRecipeDao {
+	@Getter
 	private List<Recipe> recipes;
+	
+	private final Logger log = Logger.getLogger(getClass());
 
 	@PostConstruct
 	private void initRecipes() {
+		log.info("initRecipes <-");
+
 		recipes = new ArrayList<Recipe>();
 
 		List<CookStep> pirozjok = new ArrayList<CookStep>();
@@ -50,6 +58,7 @@ public class RepoRecipeDao {
 		chai.add(new CookStep("Подождать пока завариться", 3, Boolean.FALSE));
 		Recipe recipe04 = new Recipe("Чай", chai);
 		recipes.add(recipe04);
+		log.info("initRecipes ->");
 	}
 
 	public Recipe getRandomDefaultRecipe() {

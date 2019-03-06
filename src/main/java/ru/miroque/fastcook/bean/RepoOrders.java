@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 
+import lombok.Getter;
 import ru.miroque.fastcook.domains.Order;
 
 @ApplicationScoped
@@ -16,8 +17,11 @@ public class RepoOrders {
 	
 	private final Logger log = Logger.getLogger(getClass());
 
+	@Getter
 	private ConcurrentHashMap<Order, Boolean> recievedOrders;
+	@Getter
 	private ConcurrentHashMap<Order, Boolean> cookingOrders;
+	@Getter
 	private ConcurrentHashMap<Order, Boolean> doneOrders;
 	
 	@Inject
