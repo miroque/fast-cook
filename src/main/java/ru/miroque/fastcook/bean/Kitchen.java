@@ -3,11 +3,17 @@ package ru.miroque.fastcook.bean;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.Asynchronous;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -15,6 +21,7 @@ import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 
+import ru.miroque.fastcook.conc.TransactionSupportCallableTask;
 import ru.miroque.fastcook.dao.RepoRecipeDao;
 import ru.miroque.fastcook.domains.Cook;
 import ru.miroque.fastcook.domains.CookStep;
@@ -24,6 +31,8 @@ import ru.miroque.fastcook.domains.Recipe;
 
 @ApplicationScoped
 public class Kitchen {
+	@Resource
+	ManagedExecutorService executor;
 
 	private Set<Cook> employees;
 
@@ -40,7 +49,7 @@ public class Kitchen {
 
 	@PostConstruct
 	private void actio() {
-		log.info("actio <-");
+		log.info("@PostConstruct <-");
 		employees = new HashSet<Cook>();
 
 		Cook _01 = new Cook();
@@ -59,10 +68,10 @@ public class Kitchen {
 		employees.add(_01);
 		employees.add(_02);
 		log.infov("::cooks:{0}", employees);
-		log.info("actio ->");
+		log.info("@PostConstruct ->");
 	}
 
-//	@Asynchronous
+	@Asynchronous
 	public void recievedOrder(@Observes String mark) throws InterruptedException {
 		log.info("recievedOrder <-");
 		log.infov("::<>:mark:{0}", mark);
@@ -70,14 +79,15 @@ public class Kitchen {
 			TimeUnit.SECONDS.sleep(3);
 			log.info("here start to work on order");
 			log.info("select cook or cook self choose dish and cooks it");
-			event.fire("go");
+//			event.fire("go");
+			cookTheOrders();
 		} else {
 			log.info("else if");
 		}
 		log.info("recievedOrder ->");
 	}
 
-	void cookTheOrders(@Observes String mark) throws InterruptedException {
+	void cookTheOrders() throws InterruptedException {
 		log.info("cookTheOrders <-");
 		while (!reposOrders.getRecievedOrders().isEmpty()) {
 			// кто из поваров свободен
@@ -87,24 +97,25 @@ public class Kitchen {
 			for (Entry<Order, Boolean> entry : reposOrders.getRecievedOrders().entrySet()) {
 				if (!entry.getValue()) {
 					Order order = entry.getKey();
+//					Future<Void> futureResult = null;
 					for (Dish dish : order.getItems()) {
-						for (CookStep step : dish.getRecipe().getSteps()) {
-							log.infov("::cooking: {0} :in {1} time-unit: this should be watchable?: {2}",
-									step.getName(), step.getTime(), step.getDoing());
-							TimeUnit.SECONDS.sleep(step.getTime());
+						// TODO: здесь отбирать кто из поваров может готовить это блюдо.
+						for (Cook cook : employees) {
+							log.info("   ::searching cook that may cook this dish:");
+							for (Recipe recipe : cook.getCanDo()) {
+								if (recipe.equals(dish.getRecipe())) {
+									log.info("    ::make this cook do dish:");					
+									executor.submit(new WorkingDish(dish, cook));
+								}
+							}
 						}
 					}
-					log.info("::set order finished:true");
 					entry.setValue(Boolean.TRUE);
 				} else {
 					reposOrders.getRecievedOrders().remove(entry.getKey());
 					log.info("::order removed:");
 				}
 			}
-
-//			TimeUnit.SECONDS.sleep(5);
-
-			log.info("::start cook:sleeps:");
 		}
 		log.info("cookTheOrders ->");
 	}
