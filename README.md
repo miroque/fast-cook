@@ -1,3 +1,5 @@
+[![Hits-of-Code](https://hitsofcode.com/github/miroque/fast-cook)](https://hitsofcode.com/view/github/miroque/fast-cook)
+
 # fast-cook
 
 test project, for self learning too
